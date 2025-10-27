@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.employee.management.system.Entity.Employees;
+import com.employee.management.system.Exception.ResourceNotFoundException;
 import com.employee.management.system.Repository.EmployeeRepository;
 
 @Service
@@ -31,13 +32,13 @@ public class EmployeesServiceImpl  implements EmployeeSevice{
 
 	@Override
 	public Employees getEmployeesById(Long id) {
-		Employees emp=employeeRepository.findById(id).orElseThrow(()->new RuntimeException("Employee Not Found with :"+id));
+		Employees emp=employeeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("employee not found with id :"+id));
 		return emp;
 	}
 
 	@Override
 	public Employees updateEmployees(Long id, Employees emp) {
-		Employees employee=employeeRepository.findById(id).orElseThrow(()->new RuntimeException("Employee not found with :"+id));
+		Employees employee=employeeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Employee not found with :"+id));
 		employee.setAddress(emp.getAddress());
 		employee.setDepartment(emp.getDepartment());
 		employee.setEmail(emp.getEmail());
@@ -61,7 +62,7 @@ public class EmployeesServiceImpl  implements EmployeeSevice{
 	@Override
 	public Employees updateEmployeeSingleField(Long id, Employees emp) {
 		
-		Employees employees=employeeRepository.findById(id).orElseThrow(()->new RuntimeException("Employee not found with id :"+id));
+		Employees employees=employeeRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Employee not found with id :"+id));
 		if(employees.getAddress()!=null) {
 			emp.setAddress(emp.getAddress());
 		}
