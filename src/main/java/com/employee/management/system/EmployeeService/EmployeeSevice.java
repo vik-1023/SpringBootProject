@@ -18,6 +18,8 @@ public interface EmployeeSevice {
 	
 	Employees updateEmployeeSingleField(Long id ,Employees emp);
 	
+	List<Employees> addMultipleEmployee(List<Employees> emp);
+	
 	
 
 }

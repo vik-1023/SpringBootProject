@@ -89,4 +89,10 @@ public class EmployeesServiceImpl  implements EmployeeSevice{
 	
 	}
 
+	@Override
+	public List<Employees> addMultipleEmployee(List<Employees> emp) {
+		
+		return employeeRepository.saveAll(emp);
+	}
+
 }

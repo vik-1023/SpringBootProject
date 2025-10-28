@@ -59,4 +59,10 @@ public class EmployeesController {
 		employeesServiceImpl.deleteEmployeeById(id);
 		return ResponseEntity.ok("employee deleted successfully with :" + id);
 	}
+	
+	@PostMapping("/addMultipleEmployee")
+	public ResponseEntity<List<Employees>>addMultipleEmployee(@RequestBody List<Employees> emp){
+		List<Employees>employee=employeesServiceImpl.addMultipleEmployee(emp);
+		return ResponseEntity.ok(employee);
+	}
 }
