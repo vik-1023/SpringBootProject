@@ -5,6 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name="employees")
@@ -12,11 +17,19 @@ public class Employees {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@NotBlank(message ="Name is required")
 	private String name;
+	@Email(message="Email should be valid")
 	private String email;
+	@NotBlank(message="Phone is required")
+	@Size(min=10,max=10,message="phone number should be 10 digit")
 	private String phone;
+	@NotBlank(message="Address is required")
 	private String address;
+	@NotNull(message = "Salary cannot be null")
+	@Min(value = 1000, message = "Salary must be at least 1000")
 	private int salary;
+	@NotBlank(message="department is required")
 	private String department;
 	public Employees() {
 		super();

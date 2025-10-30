@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -17,6 +18,8 @@ import org.springframework.web.service.annotation.PatchExchange;
 import com.employee.management.system.EmployeeService.EmployeesServiceImpl;
 import com.employee.management.system.Entity.Employees;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/api/employees")
 public class EmployeesController {
@@ -27,7 +30,7 @@ public class EmployeesController {
 	}
 
 	@PostMapping("/create")
-	public ResponseEntity<Employees> create(@RequestBody Employees employee) {
+	public ResponseEntity<Employees> create(@Valid @RequestBody Employees employee) {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(employeesServiceImpl.addEmployee(employee));
 	}
@@ -43,12 +46,12 @@ public class EmployeesController {
 	}
 
 	@PutMapping("/update/{id}")
-	public ResponseEntity<String> updateEmployeeAllField(@PathVariable Long id, @RequestBody Employees emp) {
+	public ResponseEntity<String> updateEmployeeAllField(@PathVariable Long id,@Valid  @RequestBody Employees emp) {
 		employeesServiceImpl.updateEmployees(id, emp);
 		return ResponseEntity.ok("Employee updated successfully.. with :" + id);
 	}
 
-	@PatchExchange("/updateEmployeeField/{id}")
+	@PatchMapping("/updateEmployeeField/{id}")
 	public ResponseEntity<String> updateEmployeeSingleField(@PathVariable Long id, @RequestBody Employees emp) {
 		employeesServiceImpl.updateEmployeeSingleField(id, emp);
 		return ResponseEntity.ok("emplyees updated successfully with :" + id);
@@ -61,7 +64,7 @@ public class EmployeesController {
 	}
 	
 	@PostMapping("/addMultipleEmployee")
-	public ResponseEntity<List<Employees>>addMultipleEmployee(@RequestBody List<Employees> emp){
+	public ResponseEntity<List<Employees>>addMultipleEmployee(@Valid @RequestBody List<Employees> emp){
 		List<Employees>employee=employeesServiceImpl.addMultipleEmployee(emp);
 		return ResponseEntity.ok(employee);
 	}
